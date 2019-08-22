@@ -22,11 +22,14 @@ Position previous(List list, Position pos){return (pos-1 >= begin(list)) ? pos-1
 
 Element locate(List list, Position pos){
 	if (pos < begin(list) || pos > end(list)) return -1;
-	
 	return list.arr[pos];
 }
 
 Element *p_locate(List *p_list, Position pos){
+	if (pos < begin(*p_list) || pos > end(*p_list)){
+		Element invalid = -1;
+		return &invalid;	
+	}
 	return &p_list->arr[pos];
 }
 
