@@ -1,11 +1,11 @@
 #include "list.h"
 
-int cnt(List list, Element x){
+int cnt(List list, ElementType x){
 	int res = 0;
-	Position pos = begin(list);
-	while(pos < end(list)){
+	Position pos = FIRST(list);
+	while(pos < ENDLIST(list)){
 		++res;
-		pos = next(list, pos);
+		pos = NEXT(list, pos);
 	}
 	return res;
 }
@@ -13,14 +13,14 @@ int cnt(List list, Element x){
 int main(){
 	int n, i;
 	List list;
-	Element x;
+	ElementType x;
 	
-	init(&list);
+	MAKENULL_LIST(&list);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
-		Element tmp;
+		ElementType tmp;
 		scanf("%d", &tmp);
-		insert(&list, tmp, end(list));
+		INSERT_LIST(&list, tmp, ENDLIST(list));
 	}
 	scanf("%d", &x);
 

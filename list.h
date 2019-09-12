@@ -2,104 +2,104 @@
 
 #define MAX_SIZE 10005
 
-typedef int Element;
+typedef int ElementType;
 typedef int Position;
 
 typedef struct{
 	int size;
-	Element arr[MAX_SIZE];
+	ElementType arr[MAX_SIZE];
 } List;
 
-int init(List* p_list){return p_list->size = 0;}
+int MAKENULL_LIST(List* p_list){return p_list->size = 0;}
 
-Element begin(List list){return 0;}
+Position FIRST(List list){return 0;}
 
-Element end(List list){return list.size;}
+Position ENDLIST(List list){return list.size;}
 
-Position next(List list, Position pos){return (pos+1 <= end(list)) ? pos+1 : -1;}
+Position NEXT(List list, Position pos){return (pos+1 <= ENDLIST(list)) ? pos+1 : -1;}
 
-Position previous(List list, Position pos){return (pos-1 >= begin(list)) ? pos-1 : -1;}
+Position PREVIOUS(List list, Position pos){return (pos-1 >= FIRST(list)) ? pos-1 : -1;}
 
-Element locate(List list, Position pos){
-	if (pos < begin(list) || pos > end(list)) return -1;
+ElementType RETRIEVE(List list, Position pos){
+	if (pos < FIRST(list) || pos > ENDLIST(list)) return -1;
 	return list.arr[pos];
 }
 
-Element *p_locate(List *p_list, Position pos){
-	if (pos < begin(*p_list) || pos > end(*p_list)){
-		Element invalid = -1;
+ElementType *p_RETRIEVE(List *p_list, Position pos){
+	if (pos < FIRST(*p_list) || pos > ENDLIST(*p_list)){
+		ElementType invalid = -1;
 		return &invalid;	
 	}
 	return &p_list->arr[pos];
 }
 
-int insert(List* p_list, Element e, Position pos){
-	if (pos < begin(*p_list) || pos > end(*p_list)) return -1;
+int INSERT_LIST(List* p_list, ElementType e, Position pos){
+	if (pos < FIRST(*p_list) || pos > ENDLIST(*p_list)) return -1;
 	
 	++p_list->size;
 	
-	Position i = end(*p_list);
+	Position i = ENDLIST(*p_list);
 	while(i >= pos){
-		if (i > pos) *p_locate(p_list, i) = locate(*p_list, i-1);
-		else *p_locate(p_list, i) = e;
-		i = previous(*p_list, i);
+		if (i > pos) *p_RETRIEVE(p_list, i) = RETRIEVE(*p_list, i-1);
+		else *p_RETRIEVE(p_list, i) = e;
+		i = PREVIOUS(*p_list, i);
 	}
 	
 	return 0;
 }
 
-int erase(List* p_list, Position pos){
-	if (pos < begin(*p_list) || pos > end(*p_list)) return -1;
+int DELETE_LIST(List* p_list, Position pos){
+	if (pos < FIRST(*p_list) || pos > ENDLIST(*p_list)) return -1;
 	
 	--p_list->size;
 	
 	Position i = pos;
-	while(i < end(*p_list)){
-		*p_locate(p_list, i) = locate(*p_list, i-1);
-		i = next(*p_list, i);
+	while(i < ENDLIST(*p_list)){
+		*p_RETRIEVE(p_list, i) = RETRIEVE(*p_list, i-1);
+		i = NEXT(*p_list, i);
 	}
 	return 0;
 }
 
-Position find(List list, Element e){
-	Position i = begin(list);
-	while(i > end(list)){
-		if (locate(list, i) == e) return i;
-		i = next(list, i);
+Position LOCATE(List list, ElementType e){
+	Position i = FIRST(list);
+	while(i > ENDLIST(list)){
+		if (RETRIEVE(list, i) == e) return i;
+		i = NEXT(list, i);
 	}
 	
-	return end(list);
+	return ENDLIST(list);
 }
 
-int print(List list){
-	Position pos = begin(list);
-	while(pos < end(list)){
-		printf("%d\t", locate(list, pos));
-		pos = next(list, pos);
+int PRINT(List list){
+	Position pos = FIRST(list);
+	while(pos < ENDLIST(list)){
+		printf("%d\t", RETRIEVE(list, pos));
+		pos = NEXT(list, pos);
 	}
 	
 	return 0;
 }
 
-int println(List list){
-	print(list);
+int PRINTLN(List list){
+	PRINT(list);
 	puts("");
 	return 0;
 }
 
-int sort(List *p_list){
-	Position i = begin(*p_list);
-	while(i < end(*p_list)){
-		Position j = next(*p_list, i);
-		while(j < end(*p_list)){
-			if (locate(*p_list, i) > locate(*p_list, j)){
-				Element tmp = locate(*p_list, i);
-				*p_locate(p_list, i) = locate(*p_list, j);
-				*p_locate(p_list, j) = tmp;				
+int SORT_LIST(List *p_list){
+	Position i = FIRST(*p_list);
+	while(i < ENDLIST(*p_list)){
+		Position j = NEXT(*p_list, i);
+		while(j < ENDLIST(*p_list)){
+			if (RETRIEVE(*p_list, i) > RETRIEVE(*p_list, j)){
+				ElementType tmp = RETRIEVE(*p_list, i);
+				*p_RETRIEVE(p_list, i) = RETRIEVE(*p_list, j);
+				*p_RETRIEVE(p_list, j) = tmp;				
 			}
-			j = next(*p_list, j);
+			j = NEXT(*p_list, j);
 		}
-		i = next(*p_list, i);
+		i = NEXT(*p_list, i);
 	}
 	
 	return 0;

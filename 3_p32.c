@@ -4,22 +4,22 @@ int main(){
 	int n, i;
 	List list;
 	
-	init(&list);
+	MAKENULL_LIST(&list);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
-		Element tmp;
+		ElementType tmp;
 		scanf("%d", &tmp);
-		insert(&list, tmp, end(list));
+		INSERT_LIST(&list, tmp, ENDLIST(list));
 	}
 	
-	Element _max = locate(list, begin(list)),
-			_min = locate(list, begin(list));
+	ElementType _max = RETRIEVE(list, FIRST(list)),
+			_min = RETRIEVE(list, FIRST(list));
 			
-	i = begin(list);
-	while(i < end(list)){
-		if (_max < locate(list, i)) _max = locate(list, i);
-		if (_min > locate(list, i)) _min = locate(list, i);
-		i = next(list, i);
+	i = FIRST(list);
+	while(i < ENDLIST(list)){
+		if (_max < RETRIEVE(list, i)) _max = RETRIEVE(list, i);
+		if (_min > RETRIEVE(list, i)) _min = RETRIEVE(list, i);
+		i = NEXT(list, i);
 	}
 	
 	printf("%d %d", _max, _min);

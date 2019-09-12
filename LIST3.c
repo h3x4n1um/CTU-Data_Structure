@@ -3,24 +3,24 @@
 int main(){
 	int n, i;
 	List list;
-	Element x;
+	ElementType x;
 	
-	init(&list);
+	MAKENULL_LIST(&list);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
-		Element tmp;
+		ElementType tmp;
 		scanf("%d", &tmp);
-		insert(&list, tmp, end(list));
+		INSERT_LIST(&list, tmp, ENDLIST(list));
 	}
 	
-	sort(&list);
-	println(list);
+	SORT_LIST(&list);
+	PRINTLN(list);
 	
 	scanf("%d", &x);
-	insert(&list, x, end(list));
+	INSERT_LIST(&list, x, ENDLIST(list));
 
-	sort(&list);
-	println(list);
+	SORT_LIST(&list);
+	PRINTLN(list);
 	
 	return 0;
 }

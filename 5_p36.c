@@ -4,26 +4,26 @@ int main(){
 	int n, i;
 	List list, odd, even;
 	
-	init(&list);
-	init(&odd);
-	init(&even);
+	MAKENULL_LIST(&list);
+	MAKENULL_LIST(&odd);
+	MAKENULL_LIST(&even);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
-		Element tmp;
+		ElementType tmp;
 		scanf("%d", &tmp);
-		insert(&list, tmp, end(list));
+		INSERT_LIST(&list, tmp, ENDLIST(list));
 	}
 	
-	i = begin(list);
-	while(i < end(list)){
-		Element tmp = locate(list, i);
-		if (tmp % 2) insert(&odd, tmp, end(odd));
-		else insert(&even, tmp, end(even));
-		i = next(list, i);
+	i = FIRST(list);
+	while(i < ENDLIST(list)){
+		ElementType tmp = RETRIEVE(list, i);
+		if (tmp % 2) INSERT_LIST(&odd, tmp, ENDLIST(odd));
+		else INSERT_LIST(&even, tmp, ENDLIST(even));
+		i = NEXT(list, i);
 	}
 	
-	println(odd);
-	println(even);
+	PRINTLN(odd);
+	PRINTLN(even);
 	
 	return 0;
 }

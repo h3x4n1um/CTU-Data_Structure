@@ -3,25 +3,25 @@
 int main(){
 	int n, i, cnt;
 	List list;
-	Element x;
+	ElementType x;
 	
-	init(&list);
+	MAKENULL_LIST(&list);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
-		Element tmp;
+		ElementType tmp;
 		scanf("%d", &tmp);
-		insert(&list, tmp, end(list));
+		INSERT_LIST(&list, tmp, ENDLIST(list));
 	}
 	scanf("%d", &x);
 	
-	Position pos = begin(list);
-	while(pos < end(list)){
-		while(locate(list, pos) == x){
+	Position pos = FIRST(list);
+	while(pos < ENDLIST(list)){
+		while(RETRIEVE(list, pos) == x){
 			++cnt;
-			if (cnt > 1) erase(&list, pos);
+			if (cnt > 1) DELETE_LIST(&list, pos);
 		}
-		pos = next(list, pos);
+		pos = NEXT(list, pos);
 	}
-	println(list);
+	PRINTLN(list);
 	return 0;
 }

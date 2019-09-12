@@ -1,12 +1,12 @@
 #include "list.h"
 
 List merge(List list1, List list2){
-	Position pos = begin(list2);
-	while(pos < end(list2)){
-		insert(&list1, locate(list2, pos), end(list1));
-		pos = next(list2, pos);
+	Position pos = FIRST(list2);
+	while(pos < ENDLIST(list2)){
+		INSERT_LIST(&list1, RETRIEVE(list2, pos), ENDLIST(list1));
+		pos = NEXT(list2, pos);
 	}
-	sort(&list1);
+	SORT_LIST(&list1);
 	return list1;
 }
 
@@ -14,22 +14,22 @@ int main(){
 	int n, i;
 	List first, second;
 	
-	init(&first);
-	init(&second);
+	MAKENULL_LIST(&first);
+	MAKENULL_LIST(&second);
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
 		int tmp;
 		scanf("%d", &tmp);
-		insert(&first, tmp, end(first));
+		INSERT_LIST(&first, tmp, ENDLIST(first));
 	}
 	scanf("%d", &n);
 	for (i = 0; i < n; ++i){
 		int tmp;
 		scanf("%d", &tmp);
-		insert(&second, tmp, end(second));
+		INSERT_LIST(&second, tmp, ENDLIST(second));
 	}
 	
-	println(merge(first, second));
+	PRINTLN(merge(first, second));
 	
 	return 0;
 }
